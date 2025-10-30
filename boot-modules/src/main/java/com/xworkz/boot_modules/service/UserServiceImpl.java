@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -38,5 +39,24 @@ public class UserServiceImpl implements UserService{
             dtos.add(dto);
         }
         return dtos ;
+    }
+
+    @Override
+    public void deleteUser(int id) {
+        repository.deleteById(id);
+    }
+
+    @Override
+    public String updateUser(UserDto dto) {
+        Optional<UserEntity> exists = repository.findById(dto.getUpdateId());
+        if (exists.isEmpty()){
+            return "no id";
+        }
+       UserEntity userEntity = exists.get();
+        userEntity.setEmail(dto.getEmail());
+        userEntity.setName(dto.getName());
+        userEntity.setPhoneNumber(dto.getPhoneNumber());
+        repository.save(userEntity);
+        return "ok";
     }
 }
