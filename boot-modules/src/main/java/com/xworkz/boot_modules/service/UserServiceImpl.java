@@ -59,4 +59,21 @@ public class UserServiceImpl implements UserService{
         repository.save(userEntity);
         return "ok";
     }
+
+    @Override
+    public String saveUsers(List<UserDto> userDtos) {
+        System.err.println("=============================================================");
+        List<UserEntity> userEntities = new ArrayList<>();
+
+        for(UserDto dto : userDtos){
+            UserEntity userEntity = new UserEntity();
+            BeanUtils.copyProperties(dto,userEntity);
+            userEntities.add(userEntity);
+        }
+        List<UserEntity> userEntities1 = repository.saveAll(userEntities);
+        if (userEntities1.isEmpty()){
+            return "notOK";
+        }
+        return "OK";
+    }
 }
