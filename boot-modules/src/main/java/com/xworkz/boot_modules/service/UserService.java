@@ -16,4 +16,8 @@ public interface UserService {
     String updateUser(UserDto dto);
 
     String saveUsers(List<UserDto> userDtos);
+
+    ArrayList<String> updateUsers(List<UserDto> userDtos);
+
+    String deleteUsers(List<Integer> ids);
 }

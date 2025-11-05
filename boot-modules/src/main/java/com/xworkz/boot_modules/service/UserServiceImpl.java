@@ -62,7 +62,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public String saveUsers(List<UserDto> userDtos) {
-        System.err.println("=============================================================");
         List<UserEntity> userEntities = new ArrayList<>();
 
         for(UserDto dto : userDtos){
@@ -75,5 +74,41 @@ public class UserServiceImpl implements UserService{
             return "notOK";
         }
         return "OK";
+    }
+
+    @Override
+    public ArrayList<String> updateUsers(List<UserDto> userDtos) {
+        ArrayList<String> ids = new  ArrayList<>();
+        for(UserDto dto : userDtos){
+            Optional<UserEntity> exists = repository.findById(dto.getUpdateId());
+            if (exists.isEmpty()){
+                ids.add(String.valueOf(dto.getUpdateId()));
+                break;
+            }else {
+                UserEntity userEntity = exists.get();
+                userEntity.setEmail(dto.getEmail());
+                userEntity.setName(dto.getName());
+                userEntity.setPhoneNumber(dto.getPhoneNumber());
+                repository.save(userEntity);
+            }
+        }
+        return ids;
+    }
+
+    @Override
+    public String deleteUsers(List<Integer> ids) {
+        if (ids == null){
+            return"Null";
+        }
+        ArrayList<String> notDeleted = new  ArrayList<>();
+        for (Integer id : ids){
+            Optional<UserEntity> exists = repository.findById(id);
+            if (exists.isEmpty()){
+                notDeleted.add(String.valueOf(id));
+                break;
+            }
+           repository.deleteById(id);
+        }
+        return ids.toString();
     }
 }

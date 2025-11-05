@@ -2,9 +2,10 @@ package com.xworkz.boot_modules.restController;
 
 import com.xworkz.boot_modules.dto.UserDto;
 import com.xworkz.boot_modules.service.UserService;
-import org.apache.catalina.User;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,7 +18,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createUser(UserDto dto){
+    public ResponseEntity<String> createUser(@Validated UserDto dto){
         service.saveAndValidate(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body("user saved");
     }
