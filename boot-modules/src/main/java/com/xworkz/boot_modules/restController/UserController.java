@@ -5,6 +5,7 @@ import com.xworkz.boot_modules.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,11 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createUser(@Validated UserDto dto){
-        service.saveAndValidate(dto);
+    public ResponseEntity<String> createUser(@RequestBody @Valid UserDto dto, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors().toString());
+        }
+        String s = service.saveAndValidate(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body("user saved");
     }
     @GetMapping

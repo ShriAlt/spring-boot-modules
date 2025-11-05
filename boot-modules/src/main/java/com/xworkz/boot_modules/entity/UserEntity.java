@@ -1,10 +1,10 @@
 package com.xworkz.boot_modules.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,4 +16,12 @@ public class UserEntity {
    private String name;
    private String email;
    private String phoneNumber;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AddressEntity> addresses = new ArrayList<>();
+
+    public void addAddress(AddressEntity  address) {
+        addresses.add(address);
+        address.setUser(this);
+    }
 }

@@ -1,6 +1,8 @@
 package com.xworkz.boot_modules.service;
 
+import com.xworkz.boot_modules.dto.AddressDto;
 import com.xworkz.boot_modules.dto.UserDto;
+import com.xworkz.boot_modules.entity.AddressEntity;
 import com.xworkz.boot_modules.entity.UserEntity;
 import com.xworkz.boot_modules.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
@@ -25,7 +27,20 @@ public class UserServiceImpl implements UserService{
             return "nullError";
         }
         UserEntity entity = new UserEntity();
-        BeanUtils.copyProperties(dto,entity);
+        entity.setPhoneNumber(dto.getPhoneNumber());
+        entity.setEmail(dto.getEmail());
+        entity.setName(dto.getName());
+        for (AddressDto addressDto : dto.getAddressDtos()) {
+            AddressEntity addressEntity = new AddressEntity();
+            addressEntity.setStreet(addressDto.getStreet());
+            addressEntity.setCity(addressDto.getCity());
+            addressEntity.setState(addressDto.getState());
+            addressEntity.setPostalCode(addressDto.getPostalCode());
+            addressEntity.setCountry(addressDto.getCountry());
+            addressEntity.setLandmark(addressDto.getLandmark());
+            addressEntity.setAddressType(addressDto.getAddressType());
+            entity.addAddress(addressEntity);
+        }
         repository.save(entity);
         return "OK";
     }
@@ -36,7 +51,13 @@ public class UserServiceImpl implements UserService{
         for(UserEntity entity : repository.findAll()){
             UserDto dto = new UserDto();
             BeanUtils.copyProperties(entity,dto);
-            dtos.add(dto);
+            List<AddressDto> addressDtos = new ArrayList<>();
+            for (AddressEntity addressEntity : entity.getAddresses()){
+                AddressDto addressDto = new AddressDto();
+                BeanUtils.copyProperties(addressEntity,addressDto);
+                addressDtos.add(addressDto);
+            }
+            dto.setAddressDtos(addressDtos);
         }
         return dtos ;
     }
@@ -53,12 +74,15 @@ public class UserServiceImpl implements UserService{
             return "no id";
         }
        UserEntity userEntity = exists.get();
+
         userEntity.setEmail(dto.getEmail());
         userEntity.setName(dto.getName());
         userEntity.setPhoneNumber(dto.getPhoneNumber());
         repository.save(userEntity);
         return "ok";
     }
+
+
 
     @Override
     public String saveUsers(List<UserDto> userDtos) {
