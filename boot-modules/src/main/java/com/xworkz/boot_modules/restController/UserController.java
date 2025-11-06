@@ -36,7 +36,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body("deleted");
     }
     @PutMapping
-    public ResponseEntity<String> updateUser(UserDto dto){
+    public ResponseEntity<String> updateUser(@RequestBody @Valid UserDto dto ,BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors().toString());
+        }
         String result = service.updateUser(dto);
         if (result.equals("no id")){
             return ResponseEntity.status(HttpStatus.OK).body("wrong id");

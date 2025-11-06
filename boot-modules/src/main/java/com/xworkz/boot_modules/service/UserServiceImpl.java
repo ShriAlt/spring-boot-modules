@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -75,13 +78,44 @@ public class UserServiceImpl implements UserService{
         }
        UserEntity userEntity = exists.get();
 
-        userEntity.setEmail(dto.getEmail());
-        userEntity.setName(dto.getName());
-        userEntity.setPhoneNumber(dto.getPhoneNumber());
-        repository.save(userEntity);
+        List<AddressEntity> existingAddresses = userEntity.getAddresses();
+
+        Map<Long , AddressEntity> addressEntityMap = userEntity.getAddresses().stream()
+                .collect(Collectors.toMap(AddressEntity::getId, Function.identity()));
+
+        for (AddressDto addressDto : dto.getAddressDtos()){
+            if (addressDto.getUpdateAddressId() >0 && addressEntityMap.containsKey(addressDto.getUpdateAddressId()) ){
+                existingAddresses.forEach(addressEntity -> {
+                    setAddressEntity(addressDto, addressEntity, userEntity);
+                });
+                userEntity.setEmail(dto.getEmail());
+                userEntity.setName(dto.getName());
+                userEntity.setPhoneNumber(dto.getPhoneNumber());
+                repository.save(userEntity);
+            }
+            else {
+                AddressEntity addressEntity = new AddressEntity();
+                setAddressEntity(addressDto, addressEntity, userEntity);
+                userEntity.setEmail(dto.getEmail());
+                userEntity.setName(dto.getName());
+                userEntity.setPhoneNumber(dto.getPhoneNumber());
+                repository.save(userEntity);
+            }
+        }
         return "ok";
     }
 
+    private static void setAddressEntity(AddressDto addressDto, AddressEntity addressEntity, UserEntity userEntity) {
+        addressEntity.setId( addressDto.getUpdateAddressId());
+        addressEntity.setStreet(addressDto.getStreet());
+        addressEntity.setCity(addressDto.getCity());
+        addressEntity.setState(addressDto.getState());
+        addressEntity.setPostalCode(addressDto.getPostalCode());
+        addressEntity.setCountry(addressDto.getCountry());
+        addressEntity.setLandmark(addressDto.getLandmark());
+        addressEntity.setAddressType(addressDto.getAddressType());
+        userEntity.addAddress(addressEntity);
+    }
 
 
     @Override

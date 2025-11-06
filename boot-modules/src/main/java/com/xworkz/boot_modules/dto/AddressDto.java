@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AddressDto {
 
+
+    private Long updateAddressId;
+
         @NotBlank(message = "Street cannot be blank")
         @Size(max = 100, message = "Street name must be under 100 characters")
         private String street;
