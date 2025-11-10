@@ -18,14 +18,15 @@ public class FindByServiceImpl implements FindByService{
 
     @Override
     public List<AddressEntity> findByName(String name) {
-        List<UserEntity> users = userRepository.findByName(name);
+        List<UserEntity> users = userRepository.findByNameIgnoreCase(name);
+        users.forEach(System.err::println);
         List<AddressEntity> addresses = new ArrayList<>();
         for (UserEntity user : users) {
+            System.err.println(user.getAddresses().toString());
             if (user.getAddresses() != null) {
                 addresses.addAll(user.getAddresses());
             }
         }
-        addresses.forEach(System.out::println);
         return addresses;
     }
 
