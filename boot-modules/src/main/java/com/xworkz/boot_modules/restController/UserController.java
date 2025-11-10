@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -28,7 +30,9 @@ public class UserController {
     }
     @GetMapping
     public ResponseEntity<String> findAll(){
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.findAll().toString());
+        List<UserDto> all = service.findAll();
+        all.forEach(System.err::println);
+        return ResponseEntity.status(HttpStatus.CREATED).body(all.toString());
     }
     @DeleteMapping
     public ResponseEntity<String> delete(int id){

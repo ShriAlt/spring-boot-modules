@@ -2,6 +2,7 @@ package com.xworkz.boot_modules.restController;
 
 import com.xworkz.boot_modules.dto.UserDto;
 import com.xworkz.boot_modules.service.UserService;
+import com.xworkz.boot_modules.service.UsersService;
 import com.xworkz.boot_modules.wrapper.UserDataWrapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UsersController {
 
-    private final UserService service;
+    private final UsersService service;
 
 
 //    @PostMapping
