@@ -2,6 +2,10 @@ package com.xworkz.boot_modules.restController;
 
 import com.xworkz.boot_modules.dto.UserDto;
 import com.xworkz.boot_modules.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +24,26 @@ public class UserController {
         this.service=service;
     }
 
+    @Operation(
+            summary = "Create a new user",
+            description = "Registers a new user."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "User successfully saved"),
+            @ApiResponse(responseCode = "400", description = "Validation failed. Input contains errors")
+    })
     @PostMapping
-    public ResponseEntity<String> createUser(@RequestBody @Valid UserDto dto, BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
+    public ResponseEntity<String> createUser(
+            @RequestBody @Valid @Parameter(description = "User details for registration", required = true) UserDto dto,
+            BindingResult bindingResult
+    ) {
+        if (bindingResult.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors().toString());
         }
         String s = service.saveAndValidate(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body("user saved");
     }
+
     @GetMapping
     public ResponseEntity<String> findAll(){
         List<UserDto> all = service.findAll();

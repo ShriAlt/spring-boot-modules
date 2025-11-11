@@ -1,0 +1,9 @@
+openapi:
+  info:
+    title: "Boot Modules API"
+    description: "API documentation for Boot Modules application"
+    version: "1.0.0"
+    contact:
+      name: "Shriharsha"
+      email: "shriharshakm10@gmail.com"
+
