@@ -8,14 +8,12 @@ import org.aspectj.lang.reflect.SourceLocation;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
-import java.util.List;
-
 @Component
 @Aspect
 public class LoggingAspect {
 //Joint Point
 
-    @Pointcut("execution(* com.xworkz.boot_modules.service.UserService.*(..))")
+    @Pointcut("execution(* com.xworkz.boot_modules.service.*.*(..))")
     public void allInService(){
         //marker method
     }
