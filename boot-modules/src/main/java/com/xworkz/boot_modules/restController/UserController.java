@@ -47,7 +47,6 @@ public class UserController {
     @GetMapping
     public ResponseEntity<String> findAll(){
         List<UserDto> all = service.findAll();
-        all.forEach(System.err::println);
         return ResponseEntity.status(HttpStatus.CREATED).body(all.toString());
     }
     @DeleteMapping

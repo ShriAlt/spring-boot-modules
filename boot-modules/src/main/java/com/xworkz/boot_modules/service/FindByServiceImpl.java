@@ -7,6 +7,7 @@ import com.xworkz.boot_modules.entity.UserEntity;
 import com.xworkz.boot_modules.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -25,19 +26,18 @@ public class FindByServiceImpl implements FindByService{
 
     @Override
     public List<List<AddressDto>> findByName(String name) {
-
-        List<List<AddressDto>> lists = new ArrayList<>();
-        for(UserEntity entity : userRepository.findByName(name)){
-            List<AddressDto> addressDtos = new ArrayList<>();
-            for (AddressEntity addressEntity : entity.getAddresses()){
-                AddressDto addressDto = new AddressDto();
-                BeanUtils.copyProperties(addressEntity,addressDto);
-                addressDtos.add(addressDto);
-            }
-            lists.add(addressDtos);
-        }
-        return lists;
+        return userRepository.findByNameContainingIgnoreCase(name).stream()
+                .map(userEntity -> userEntity.getAddresses().stream()
+                        .map(addressEntity -> {
+                            AddressDto addressDto = new AddressDto();
+                            BeanUtils.copyProperties(addressEntity, addressDto);
+                            return addressDto;
+                        })
+                        .collect(Collectors.toList())
+                )
+                .collect(Collectors.toList());
     }
+
 
     @Override
     public Page<UserDto> findAllUsers(Pageable pageable) {
@@ -61,9 +61,6 @@ public class FindByServiceImpl implements FindByService{
             userDto.setAddressDtos(addressDtos);
             userDtos.add(userDto);
         });
-
-
-
-        return ;
+        return new PageImpl<>(userDtos,pageable,all.getTotalElements());
     }
 }

@@ -2,8 +2,7 @@ package com.xworkz.boot_modules.restController;
 
 import com.xworkz.boot_modules.dto.AddressDto;
 import com.xworkz.boot_modules.dto.UserDto;
-import com.xworkz.boot_modules.entity.AddressEntity;
-import com.xworkz.boot_modules.entity.UserEntity;
+
 import com.xworkz.boot_modules.service.FindByService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,11 +27,11 @@ public class FindByController {
     }
 
     @GetMapping("name")
-    public ResponseEntity<String > findUserByName(String name){
+    public ResponseEntity<List<List<AddressDto>>> findUserByName(@RequestParam String name) {
         List<List<AddressDto>> addressDtos = findByService.findByName(name);
-        addressDtos.forEach(addressEntities -> addressEntities.forEach(System.err::println));
-        return ResponseEntity.status(HttpStatus.OK).body(addressDtos.toString());
+        return ResponseEntity.ok(addressDtos);
     }
+
 
     @GetMapping("findAll")
     public Page<UserDto> findAllUser(

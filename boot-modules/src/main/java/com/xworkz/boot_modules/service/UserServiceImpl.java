@@ -4,6 +4,7 @@ import com.xworkz.boot_modules.dto.AddressDto;
 import com.xworkz.boot_modules.dto.UserDto;
 import com.xworkz.boot_modules.entity.AddressEntity;
 import com.xworkz.boot_modules.entity.UserEntity;
+import com.xworkz.boot_modules.mapper.AddressMapper;
 import com.xworkz.boot_modules.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -34,14 +35,7 @@ public class UserServiceImpl implements UserService{
         entity.setEmail(dto.getEmail());
         entity.setName(dto.getName());
         for (AddressDto addressDto : dto.getAddressDtos()) {
-            AddressEntity addressEntity = new AddressEntity();
-            addressEntity.setStreet(addressDto.getStreet());
-            addressEntity.setCity(addressDto.getCity());
-            addressEntity.setState(addressDto.getState());
-            addressEntity.setPostalCode(addressDto.getPostalCode());
-            addressEntity.setCountry(addressDto.getCountry());
-            addressEntity.setLandmark(addressDto.getLandmark());
-            addressEntity.setAddressType(addressDto.getAddressType());
+            AddressEntity addressEntity = AddressMapper.INSTANCE.addressDtoToAddressEntity(addressDto);
             entity.addAddress(addressEntity);
         }
         repository.save(entity);
