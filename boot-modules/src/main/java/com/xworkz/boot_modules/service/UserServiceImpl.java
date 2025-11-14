@@ -7,6 +7,7 @@ import com.xworkz.boot_modules.entity.UserEntity;
 import com.xworkz.boot_modules.mapper.AddressMapper;
 import com.xworkz.boot_modules.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
