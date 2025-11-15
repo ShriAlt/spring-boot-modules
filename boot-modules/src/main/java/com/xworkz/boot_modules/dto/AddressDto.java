@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AddressDto {
 
-
     private Long updateAddressId;
 
         @NotBlank(message = "Street cannot be blank")
