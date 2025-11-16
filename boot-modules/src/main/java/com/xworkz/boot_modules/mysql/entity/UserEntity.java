@@ -1,4 +1,4 @@
-package com.xworkz.boot_modules.entity;
+package com.xworkz.boot_modules.mysql.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

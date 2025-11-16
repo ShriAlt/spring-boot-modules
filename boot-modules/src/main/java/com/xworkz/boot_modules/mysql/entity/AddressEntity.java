@@ -1,6 +1,5 @@
-package com.xworkz.boot_modules.entity;
+package com.xworkz.boot_modules.mysql.entity;
 
-import com.xworkz.boot_modules.dto.UserDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import lombok.Data;

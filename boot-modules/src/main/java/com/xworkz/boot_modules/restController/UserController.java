@@ -1,7 +1,7 @@
 package com.xworkz.boot_modules.restController;
 
 import com.xworkz.boot_modules.dto.UserDto;
-import com.xworkz.boot_modules.service.UserService;
+import com.xworkz.boot_modules.mysql.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -10,7 +10,6 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

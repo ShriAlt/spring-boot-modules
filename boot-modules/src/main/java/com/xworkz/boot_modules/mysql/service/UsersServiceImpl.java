@@ -1,11 +1,10 @@
-package com.xworkz.boot_modules.service;
+package com.xworkz.boot_modules.mysql.service;
 
 import com.xworkz.boot_modules.dto.AddressDto;
 import com.xworkz.boot_modules.dto.UserDto;
-import com.xworkz.boot_modules.entity.AddressEntity;
-import com.xworkz.boot_modules.entity.UserEntity;
-import com.xworkz.boot_modules.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import com.xworkz.boot_modules.mysql.entity.AddressEntity;
+import com.xworkz.boot_modules.mysql.entity.UserEntity;
+import com.xworkz.boot_modules.mysql.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

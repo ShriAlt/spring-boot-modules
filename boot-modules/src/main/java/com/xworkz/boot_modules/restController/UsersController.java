@@ -1,9 +1,7 @@
 package com.xworkz.boot_modules.restController;
 
 import com.xworkz.boot_modules.dto.UserDto;
-import com.xworkz.boot_modules.service.UserService;
-import com.xworkz.boot_modules.service.UsersService;
-import com.xworkz.boot_modules.wrapper.UserDataWrapper;
+import com.xworkz.boot_modules.mysql.service.UsersService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

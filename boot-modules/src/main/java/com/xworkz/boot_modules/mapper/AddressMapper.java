@@ -1,7 +1,7 @@
 package com.xworkz.boot_modules.mapper;
 
 import com.xworkz.boot_modules.dto.AddressDto;
-import com.xworkz.boot_modules.entity.AddressEntity;
+import com.xworkz.boot_modules.mysql.entity.AddressEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
