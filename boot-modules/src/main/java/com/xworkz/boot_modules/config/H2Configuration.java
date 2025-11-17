@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "com.xworkz.boot_modules.h2.repository",   // H2 repos
+        basePackages = "com.xworkz.boot_modules.h2.repository",
         entityManagerFactoryRef = "h2EntityManagerFactory",
         transactionManagerRef = "h2TransactionManager"
 )
@@ -41,6 +41,7 @@ public class H2Configuration {
 
         Map<String, Object> props = new HashMap<>();
         props.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        props.put("hibernate.hbm2ddl.auto", "update");
         em.setJpaPropertyMap(props);
 
         em.setPersistenceUnitName("h2PU");

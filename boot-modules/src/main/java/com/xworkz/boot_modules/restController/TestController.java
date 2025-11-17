@@ -1,20 +1,23 @@
 package com.xworkz.boot_modules.restController;
 
 import com.xworkz.boot_modules.dto.UserDto;
+import com.xworkz.boot_modules.h2.service.H2UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.convert.ReadingConverter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/h2Users")
 public class TestController {
 
+    @Autowired
+    H2UserService h2UserService;
 
     @PostMapping
-    public ResponseEntity<String> saveUser(UserDto dto){
-
+    public ResponseEntity<String> saveUser(@RequestBody UserDto dto){
+        h2UserService.saveUser(dto);
         return ResponseEntity.status(HttpStatus.OK).body("User Saved");
     }
 }

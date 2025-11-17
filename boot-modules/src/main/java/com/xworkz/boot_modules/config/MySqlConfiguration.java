@@ -41,6 +41,7 @@ public class MySqlConfiguration {
 
         Map<String, Object> props = new HashMap<>();
         props.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        props.put("hibernate.hbm2ddl.auto", "update");
         em.setJpaPropertyMap(props);
 
         em.setPersistenceUnitName("mysqlPU");
