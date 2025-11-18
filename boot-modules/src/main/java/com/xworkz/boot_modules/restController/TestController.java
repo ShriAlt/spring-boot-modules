@@ -1,9 +1,8 @@
 package com.xworkz.boot_modules.restController;
 
 import com.xworkz.boot_modules.dto.UserDto;
-import com.xworkz.boot_modules.h2.service.H2UserService;
+import com.xworkz.boot_modules.service.H2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.convert.ReadingConverter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

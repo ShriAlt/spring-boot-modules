@@ -1,4 +1,4 @@
-package com.xworkz.boot_modules.mysql.service;
+package com.xworkz.boot_modules.service;
 
 import com.xworkz.boot_modules.dto.AddressDto;
 import com.xworkz.boot_modules.dto.UserDto;
@@ -7,6 +7,7 @@ import com.xworkz.boot_modules.mysql.entity.UserEntity;
 import com.xworkz.boot_modules.mapper.AddressMapper;
 import com.xworkz.boot_modules.mysql.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,7 +42,6 @@ public class UserServiceImpl implements UserService{
         repository.save(entity);
         return "OK";
     }
-
     @Override
     public List<UserDto> findAll() {
         List<UserDto> dtos = new ArrayList<>();
@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService{
         }
         return dtos ;
     }
+
 
     @Override
     public void deleteUser(int id) {

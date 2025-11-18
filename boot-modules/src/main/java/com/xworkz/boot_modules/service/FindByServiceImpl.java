@@ -1,4 +1,4 @@
-package com.xworkz.boot_modules.mysql.service;
+package com.xworkz.boot_modules.service;
 
 import com.xworkz.boot_modules.dto.AddressDto;
 import com.xworkz.boot_modules.dto.UserDto;

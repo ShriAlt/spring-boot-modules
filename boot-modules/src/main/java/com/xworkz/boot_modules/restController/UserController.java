@@ -1,7 +1,7 @@
 package com.xworkz.boot_modules.restController;
 
 import com.xworkz.boot_modules.dto.UserDto;
-import com.xworkz.boot_modules.mysql.service.UserService;
+import com.xworkz.boot_modules.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

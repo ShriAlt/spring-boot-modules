@@ -3,7 +3,7 @@ package com.xworkz.boot_modules.restController;
 import com.xworkz.boot_modules.dto.AddressDto;
 import com.xworkz.boot_modules.dto.UserDto;
 
-import com.xworkz.boot_modules.mysql.service.FindByService;
+import com.xworkz.boot_modules.service.FindByService;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

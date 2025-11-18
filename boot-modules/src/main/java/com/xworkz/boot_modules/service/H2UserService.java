@@ -1,4 +1,4 @@
-package com.xworkz.boot_modules.h2.service;
+package com.xworkz.boot_modules.service;
 
 import com.xworkz.boot_modules.dto.UserDto;
 

@@ -23,13 +23,15 @@ import java.util.Map;
         entityManagerFactoryRef = "h2EntityManagerFactory",
         transactionManagerRef = "h2TransactionManager"
 )
-public class H2Configuration {
+public class  H2Configuration {
 
         @Bean(name = "h2DataSource")
         @ConfigurationProperties(prefix = "spring.datasource.h2")
         public DataSource h2DataSource() {
             return DataSourceBuilder.create().build();
         }
+
+
 
     @Bean(name = "h2EntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean h2EntityManagerFactory(
