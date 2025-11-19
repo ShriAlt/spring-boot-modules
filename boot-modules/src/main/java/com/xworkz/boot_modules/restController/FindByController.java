@@ -3,11 +3,13 @@ package com.xworkz.boot_modules.restController;
 import com.xworkz.boot_modules.dto.AddressDto;
 import com.xworkz.boot_modules.dto.UserDto;
 
+import com.xworkz.boot_modules.mysql.entity.UserEntity;
 import com.xworkz.boot_modules.service.FindByService;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/")
@@ -40,5 +43,14 @@ public class FindByController {
 
         Pageable pageable = PageRequest.of(page,size);
         return findByService.findAllUsers(pageable);
+    }
+
+    @GetMapping("findById")
+    public ResponseEntity<UserEntity> findById(String id){
+        UserEntity byId = findByService.findById(id);
+        if (byId == null){
+            throw new NoSuchElementException("could not find the user");
+        }
+        return ResponseEntity.ok(byId);
     }
 }

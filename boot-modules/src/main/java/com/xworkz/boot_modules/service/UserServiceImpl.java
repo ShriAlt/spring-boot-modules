@@ -7,6 +7,7 @@ import com.xworkz.boot_modules.mysql.entity.UserEntity;
 import com.xworkz.boot_modules.mapper.AddressMapper;
 import com.xworkz.boot_modules.mysql.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,9 @@ public class UserServiceImpl implements UserService{
         return "OK";
     }
     @Override
+    @Cacheable("HarshaCache")
     public List<UserDto> findAll() {
+        System.out.println("running inside findAll...");
         List<UserDto> dtos = new ArrayList<>();
 
         for(UserEntity entity : repository.findAll()){
@@ -63,10 +66,13 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
+    @CacheEvict(value = "HarshaCache" , allEntries = true)
     public void deleteUser(int id) {
         repository.deleteById(id);
     }
 
+
+    @CacheEvict(value ="HarshaCache" ,allEntries = true )
     @Override
     public String updateUser(UserDto dto) {
 

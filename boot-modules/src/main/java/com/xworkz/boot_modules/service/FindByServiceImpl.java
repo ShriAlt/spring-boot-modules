@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,5 +63,13 @@ public class FindByServiceImpl implements FindByService{
             userDtos.add(userDto);
         });
         return new PageImpl<>(userDtos,pageable,all.getTotalElements());
+    }
+
+    @Override
+    public UserEntity findById(String id) {
+        Optional<UserEntity> byId = userRepository.findById(Integer.valueOf(id));
+        UserEntity userEntity = byId.get();
+
+        return userEntity;
     }
 }
