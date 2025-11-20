@@ -9,16 +9,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.util.NoSuchElementException;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<ErrorResponse> exceptionHandler(HttpServletRequest request, NoSuchElementException ex){
-        String error = " No such element "+ex.getMessage();
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> exceptionHandler(HttpServletRequest request, Exception ex){
+        String error = ex.getMessage();
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST,error,request.getRequestURI());
         return new ResponseEntity<>(errorResponse,errorResponse.getHttpStatus());
     }
