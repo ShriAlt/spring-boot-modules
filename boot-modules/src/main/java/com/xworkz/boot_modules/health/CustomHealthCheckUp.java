@@ -15,7 +15,6 @@ public class CustomHealthCheckUp implements HealthIndicator {
         }
         return Health.down().withDetail("healthCheck","Not working").build();
     }
-
     private boolean isHealthy(){
         return false;
     }

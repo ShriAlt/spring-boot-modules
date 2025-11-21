@@ -68,8 +68,6 @@ public class FindByServiceImpl implements FindByService{
     @Override
     public UserEntity findById(String id) {
         Optional<UserEntity> byId = userRepository.findById(Integer.valueOf(id));
-        UserEntity userEntity = byId.get();
-
-        return userEntity;
+        return byId.get();
     }
 }
