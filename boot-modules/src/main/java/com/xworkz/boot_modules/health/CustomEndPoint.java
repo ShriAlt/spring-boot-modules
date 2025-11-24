@@ -13,4 +13,7 @@ public class CustomEndPoint {
     public String myEndPoint(){
         return "Custom endPoint";
     }
+
+
+
 }

@@ -1,7 +1,10 @@
 package com.xworkz.boot_modules.health;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,4 +21,17 @@ public class CustomHealthCheckUp implements HealthIndicator {
     private boolean isHealthy(){
         return false;
     }
+
+    @Autowired
+    private CacheManager cacheManager;
+
+    public void printCacheContents() {
+        Cache cache = cacheManager.getCache("HarshaCache");
+        if (cache != null) {
+            Object nativeCache = cache.getNativeCache();
+            System.out.println(nativeCache);
+        }
+    }
+
 }
+
